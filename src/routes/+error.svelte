@@ -16,7 +16,6 @@
 	<ion-toolbar color="primary">
 		<ion-buttons slot="start">
             {#if $currentUser}
-                <ion-menu-button />
                 <ion-button on:click={()=>{goto(popPathStack())}}>
                     <ion-icon slot="icon-only" icon={allIonicIcons.arrowBackOutline} />
                 </ion-button>	

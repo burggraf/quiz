@@ -7,8 +7,6 @@
 	import { goto } from '$app/navigation'
 
 
-	import Menu from '$lib/components/Menu.svelte';
-
 	import { setupIonicSvelte } from '$ionic/svelte';
 
 	/* Theme variables */
@@ -26,9 +24,6 @@
 
 <ion-app>
 	<ion-split-pane when={false} content-id="main">
-		{#if true || $currentUser}
-		<Menu />
-		{/if}
 		<div class="ion-page" id="main">
 			<slot />
 		</div>
