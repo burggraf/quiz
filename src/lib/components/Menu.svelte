@@ -51,8 +51,8 @@
 
 	const appPages: AppPage[] = [
 		{
-			title: 'Welcome',
-			url: 'welcome',
+			title: 'Quiz',
+			url: 'quiz',
 			icon: 'home',
 			children: [],
 		},
@@ -151,13 +151,14 @@
 		<div class="login">
 			<ion-menu-toggle auto-hide={false}>
 				<Login
-					providers={['google', 'facebook', 'github']}
+					providers={['google']}
 					onSignOut={() => {
 						localStorage.clear()
 						// goto('/');
 						window.location.href = '/'
 					}}
 					onSignIn={() => {
+						goto('/quiz')
 						// goto('/dashboardwelcome');
 					}}
 					profileFunction={() => {
