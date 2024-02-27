@@ -167,6 +167,7 @@
                 {correct} of {total} ({Math.round(correct / Math.max(1, total) * 100)}%)
             </div>
             {:else}
+                {correct} of {total} ({Math.round(correct / Math.max(1, total) * 100)}%)
                 <div style="padding-left: 20px;padding-right: 20px;">
                     <div style="margin: auto;width: 100%; max-width: 400px;">
                     <Login
