@@ -28,6 +28,7 @@
 			componentProps: {
 				providers: ['google'],
 				onSignIn: () => {
+					console.log('*** onSignIn')
 					goto('/quiz')
 				},
 			},
@@ -58,7 +59,9 @@
 				</div>
 			{:else}
 				<div class="width-400">
-					<ion-button expand="block" on:click={openLoginBox}>Get Started</ion-button>
+					<ion-button expand="block" on:click={openLoginBox}>Log In / Sign Up</ion-button><br/><br/><br/>
+					<ion-button expand="block" on:click={() => {goto('/quiz')}}>Just Quiz Me</ion-button>
+
 				</div>
 			{/if}
 		</div>
