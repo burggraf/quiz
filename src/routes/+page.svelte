@@ -44,9 +44,9 @@
 	<ion-header>
 		{#if $currentUser}
 			<ion-toolbar color="secondary">
-				<ion-buttons slot="start">
+				<!-- <ion-buttons slot="start">
 					<ion-menu-button />
-				</ion-buttons>
+				</ion-buttons> -->
 				<ion-title>Welcome</ion-title>
 			</ion-toolbar>
 		{/if}

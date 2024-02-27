@@ -103,9 +103,6 @@
 <IonPage {ionViewDidEnter}>
     <ion-header>
         <ion-toolbar color="transparent">
-            <!-- <ion-buttons slot="start">
-                <ion-menu-button />
-            </ion-buttons> -->
             <ion-title>{app_name} {app_version}</ion-title>
             <ion-buttons slot="start">
                 <ion-button on:click={() => {
