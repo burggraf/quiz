@@ -151,18 +151,20 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-		<Login
-		providers={['google']}
-		onSignOut={() => {
-			localStorage.clear()
-			// goto('/');
-			window.location.href = '/quiz'
-		}}
-		onSignIn={() => {
-			goto('/quiz')
-			// goto('/dashboardwelcome');
-		}}
-	/>
+		<div style="margin: auto; width: 100%; max-width: 450px;">
+			<Login
+			providers={['google']}
+			onSignOut={() => {
+				localStorage.clear()
+				// goto('/');
+				window.location.href = '/quiz'
+			}}
+			onSignIn={() => {
+				goto('/quiz')
+				// goto('/dashboardwelcome');
+			}}
+		/>	
+		</div>
 	</ion-content>
 </IonPage>
 
