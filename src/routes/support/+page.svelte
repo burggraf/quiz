@@ -1,14 +1,18 @@
 <script lang="ts">
+	import { goto } from "$app/navigation"
 	import IonPage from "$ionpage";
+	import { closeOutline } from "ionicons/icons"
 
 
 </script>
 <IonPage>
     <ion-header>
         <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-menu-button />
-            </ion-buttons>
+			<ion-buttons slot="start">
+				<ion-button on:click={()=>{goto("/quiz")}}>
+					<ion-icon slot="icon-only" icon={closeOutline} />
+				</ion-button>
+			</ion-buttons>
             <ion-title>Support</ion-title>
         </ion-toolbar>
     </ion-header>

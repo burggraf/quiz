@@ -5,6 +5,13 @@
     import type { Question } from './quiz.interfaces'
     import { initQuestion } from "./quiz.interfaces";
     import { currentUser } from '$services/backend.service';
+    import { goto } from '$app/navigation'
+	import Login from '$components/Login.svelte'
+	import { settingsOutline } from "ionicons/icons"
+
+	const app_version = __APP_VERSION__
+	const app_name = __APP_NAME__
+
     let question: Question = initQuestion();
     let correct: number = 0;
     let total: number = 0;
@@ -95,11 +102,18 @@
 </script>
 <IonPage {ionViewDidEnter}>
     <ion-header>
-        <ion-toolbar>
-            <ion-buttons slot="start">
+        <ion-toolbar color="transparent">
+            <!-- <ion-buttons slot="start">
                 <ion-menu-button />
+            </ion-buttons> -->
+            <ion-title>{app_name} {app_version}</ion-title>
+            <ion-buttons slot="start">
+                <ion-button on:click={() => {
+                    goto('/settings')
+                }}>
+                    <ion-icon slot="icon-only" icon={settingsOutline}></ion-icon>
+                </ion-button>
             </ion-buttons>
-            <ion-title>Quiz</ion-title>
         </ion-toolbar>
     </ion-header>
     <ion-content class="ion-padding">
@@ -138,15 +152,61 @@
 
     </ion-content>
     <ion-footer>
-        <ion-toolbar>
-            <!-- <ion-buttons slot="start">
-                <ion-menu-button />
-            </ion-buttons> -->
-            {#if total > 0}
-            <ion-title>{correct} of {total} ({Math.round(correct / Math.max(1, total) * 100)}%)</ion-title>
+        <ion-toolbar color="transparent" class="ion-text-center">
+            {#if $currentUser}
+            <div style="width: 100%;" on:click={()=>{goto('/account')}}>
+                {$currentUser?.name || $currentUser?.email}: 
+                {correct} of {total} ({Math.round(correct / Math.max(1, total) * 100)}%)
+            </div>
+            {:else}
+                <div style="padding-left: 20px;padding-right: 20px;">
+                    <div style="margin: auto;width: 100%; max-width: 400px;">
+                    <Login
+                        providers={['google']}
+                        onSignOut={() => {
+                            localStorage.clear()
+                            // goto('/');
+                            window.location.href = '/quiz'
+                        }}
+                        onSignIn={() => {
+                            goto('/quiz')
+                            // goto('/dashboardwelcome');
+                        }}
+                    /></div>
+                </div>
             {/if}
-            <div class="ion-text-right">{vars?.FLY_REGION ? vars?.FLY_REGION : "---"}&nbsp;&nbsp;</div>
+            <ion-grid style="width: 100%;">
+                <ion-row style="width: 100%;">
+                    <ion-col size={"4"} class="ion-text-center">
+                        <span
+                        on:click={() => {
+                            goto('/terms')
+                        }}
+                        class="pointer">Service Terms</span>        
+                    </ion-col>
+                    <ion-col size={"3"} class="ion-text-center">
+                        <span
+                            on:click={() => {
+                                goto('/privacy')
+                            }}
+                            class="pointer">Privacy</span
+                        >
+                    </ion-col>
+                    <ion-col size={"3"} class="ion-text-center">
+                        <span
+                            on:click={() => {
+                                goto('/support')
+                            }}
+                            class="pointer">Support</span
+                        >        
+                    </ion-col>
+                    <ion-col size={"2"} class="ion-text-center">
+                        {vars?.FLY_REGION ? vars?.FLY_REGION : "---"}
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-toolbar>
+
     </ion-footer>
 </IonPage>
 <style>

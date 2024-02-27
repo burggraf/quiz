@@ -1,15 +1,18 @@
 <script lang="ts">
 	import IonPage from '$ionpage'
+	import Login from '$components/Login.svelte'
 	import {
 		add,
 		addOutline,
 		closeCircleOutline,
+		closeOutline,
 		cloudUploadOutline,
 		imageOutline,
 		personOutline,
 	} from 'ionicons/icons'
 	import { pb, currentUser, apiURL } from '$services/backend.service'
 	import { onMount } from 'svelte'
+	import { goto } from '$app/navigation'
 	let name = ''
 	const handleNameChange = async (event: any) => {
 		name = event.target.value!
@@ -68,9 +71,11 @@
 	<ion-header>
 		<ion-toolbar>
 			<ion-buttons slot="start">
-				<ion-menu-button />
+				<ion-button on:click={()=>{goto("/quiz")}}>
+					<ion-icon slot="icon-only" icon={closeOutline} />
+				</ion-button>
 			</ion-buttons>
-			<ion-title>Account</ion-title>
+			<ion-title>Quiz Player Info</ion-title>
 		</ion-toolbar>
 	</ion-header>
 	<ion-content class="ion-padding">
@@ -146,7 +151,18 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-
+		<Login
+		providers={['google']}
+		onSignOut={() => {
+			localStorage.clear()
+			// goto('/');
+			window.location.href = '/quiz'
+		}}
+		onSignIn={() => {
+			goto('/quiz')
+			// goto('/dashboardwelcome');
+		}}
+	/>
 	</ion-content>
 </IonPage>
 
