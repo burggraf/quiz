@@ -131,7 +131,7 @@
 		})
 		menuContent = renderMenuItems(appPages)
 		setTimeout(() => {
-			let targetItem = $currentState.selectedMenuItem || 'welcome' // need to get startup route here
+			let targetItem = $currentState.selectedMenuItem || 'quiz' // need to get startup route here
 			setSelectedItem(targetItem)
 		}, 500)
 	})

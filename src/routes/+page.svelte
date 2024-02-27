@@ -26,9 +26,9 @@
 		const openLoginModalController = await modalController.create({
 			component: LoginModal,
 			componentProps: {
-				providers: ['google','facebook', 'github'],
+				providers: ['google'],
 				onSignIn: () => {
-					goto('/welcome')
+					goto('/quiz')
 				},
 			},
 			showBackdrop: true,

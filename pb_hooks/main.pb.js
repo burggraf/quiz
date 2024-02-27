@@ -67,7 +67,7 @@ routerAdd("GET", "/getquestion", (c) => {
 // onRecordAfterConfirmVerificationRequest((e) => {
 //     console.log('onRecordAfterConfirmVerificationRequest: e.httpContext',JSON.stringify(e.httpContext,null,2))
 //     console.log('onRecordAfterConfirmVerificationRequest: e.record',JSON.stringify(e.record,null,2))
-//     // e.redirect(200, "http://localhost:8100/welcome");
+//     // e.redirect(200, "http://localhost:8100/quiz");
 // }, "users")
 
 

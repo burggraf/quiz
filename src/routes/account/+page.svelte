@@ -1,6 +1,5 @@
 <script lang="ts">
 	import IonPage from '$ionpage'
-	import Keys from '$components/Keys.svelte'
 	import {
 		add,
 		addOutline,
@@ -147,8 +146,6 @@
 				</ion-col>
 			</ion-row>
 		</ion-grid>
-
-		<Keys />
 
 	</ion-content>
 </IonPage>
