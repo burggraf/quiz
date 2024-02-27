@@ -9,10 +9,14 @@
 		cloudUploadOutline,
 		imageOutline,
 		personOutline,
+		trashOutline,
 	} from 'ionicons/icons'
 	import { pb, currentUser, apiURL } from '$services/backend.service'
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
+	import { showConfirm } from '$services/alert.service'
+	import { loadingBox } from '$services/loadingMessage'
+	import { toast } from '$services/toast'
 	let name = ''
 	const handleNameChange = async (event: any) => {
 		name = event.target.value!
@@ -62,16 +66,32 @@
 		} else {
 			console.error('*** fileInput not found ***')
 		}
-
 	})
-
+	const deleteAccount = async () => {
+		if ($currentUser) {
+			await showConfirm({
+				header: 'Delete your account?',
+				message: `Are you SURE?  This cannot be undone.`,
+				okHandler: async () => {
+					const loader = await loadingBox('Deleting app...')
+					await pb.collection('users').delete($currentUser.id)
+					loader.dismiss()
+					goto('/quiz')
+				},
+			})
+		}
+	}
 </script>
 
 <IonPage {ionViewWillEnter}>
 	<ion-header>
 		<ion-toolbar>
 			<ion-buttons slot="start">
-				<ion-button on:click={()=>{goto("/quiz")}}>
+				<ion-button
+					on:click={() => {
+						goto('/quiz')
+					}}
+				>
 					<ion-icon slot="icon-only" icon={closeOutline} />
 				</ion-button>
 			</ion-buttons>
@@ -153,19 +173,27 @@
 		</ion-grid>
 		<div style="margin: auto; width: 100%; max-width: 450px;">
 			<Login
-			providers={['google']}
-			onSignOut={() => {
-				localStorage.clear()
-				// goto('/');
-				window.location.href = '/quiz'
-			}}
-			onSignIn={() => {
-				goto('/quiz')
-				// goto('/dashboardwelcome');
-			}}
-		/>	
+				providers={['google']}
+				onSignOut={() => {
+					localStorage.clear()
+					// goto('/');
+					window.location.href = '/quiz'
+				}}
+				onSignIn={() => {
+					goto('/quiz')
+					// goto('/dashboardwelcome');
+				}}
+			/>
 		</div>
 	</ion-content>
+	<ion-footer>
+		<div class="ion-padding">
+			<ion-button expand="block" color="danger" fill="clear" on:click={deleteAccount}>
+				<ion-icon slot="start" icon={trashOutline} />
+				Delete my Account
+			</ion-button>
+		</div>
+	</ion-footer>
 </IonPage>
 
 <style>

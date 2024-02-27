@@ -1,10 +1,9 @@
 <script lang="ts">
 	import IonPage from "$ionpage";
-    import { pb } from '$services/backend.service';
+    import { pb, currentUser } from '$services/backend.service';
 	import { onMount } from "svelte"
     import type { Question } from './quiz.interfaces'
     import { initQuestion } from "./quiz.interfaces";
-    import { currentUser } from '$services/backend.service';
     import { goto } from '$app/navigation'
 	import Login from '$components/Login.svelte'
 	import { settingsOutline } from "ionicons/icons"
@@ -16,6 +15,7 @@
     let question: Question = initQuestion();
     let correct: number = 0;
     let total: number = 0;
+    let answered = false;
     const getQuestion = async () => {
         const result = await pb.send("/getquestion", {});
         question = result.result as Question; 
@@ -26,7 +26,7 @@
         await getQuestion();
         vars = await pb.send("/getvars", {});
     });
-
+    let delay = ($currentUser?.questionDelay || 2) * 1000;
     const getScore = async () => {
         if (!$currentUser) {
             return;
@@ -61,6 +61,17 @@
             user: $currentUser.id,
         });
     }
+    const updateAnswers = () => {
+        for (let i = 0; i < 4; i++) {
+            const el: any = document.getElementById(`item-${i}`);
+            if (el) {
+                el.color = '';
+                el.fill = 'clear';
+            }
+        }
+        answered = false;
+    }
+
     const selectAnswer = (letter: string) => {
         // get position of this letter in the answerMap
         const index = question.answerMap.indexOf(letter);
@@ -84,16 +95,14 @@
             }
             total++;
             logQuestion(letter);
-            setTimeout(() => {
-                for (let i = 0; i < 4; i++) {
-                    const el: any = document.getElementById(`item-${i}`);
-                    if (el) {
-                        el.color = '';
-                        el.fill = 'clear';
-                    }
-                }
-                getQuestion();
-            }, 2000)
+            delay = ($currentUser?.questionDelay || 2) * 1000;
+            answered = true;
+            if (delay > 0) {
+                setTimeout(() => {
+                    updateAnswers();
+                    getQuestion();
+                }, delay);
+            } 
         }
     }
 </script>
@@ -129,6 +138,11 @@
             <ion-button class="item-text-wrap" id="item-2" fill="clear" on:click={selectAnswer(question.answerMap[2])}>{question[question.answerMap[2]]}</ion-button>
             <ion-button class="item-text-wrap" id="item-3" fill="clear" on:click={selectAnswer(question.answerMap[3])}>{question[question.answerMap[3]]}</ion-button>
             </div>
+            {#if delay === 0 && answered}
+            <ion-card-footer>
+                <ion-button expand="block" fill="clear" on:click={()=>{updateAnswers();getQuestion();}}>Next Question</ion-button>
+            </ion-card-footer>
+            {/if}
         </ion-card>
         {:else}
         <ion-card>
