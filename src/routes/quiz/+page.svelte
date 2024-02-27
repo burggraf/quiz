@@ -7,7 +7,7 @@
     import { goto } from '$app/navigation'
 	import Login from '$components/Login.svelte'
 	import { settingsOutline } from "ionicons/icons"
-	import { loadingBox } from '$services/loadingMessage'
+	// import { loadingBox } from '$services/loadingMessage'
 
 	const app_version = __APP_VERSION__
 	const app_name = __APP_NAME__
@@ -29,6 +29,14 @@
     let delay = ($currentUser?.questionDelay || 2) * 1000;
     const getScore = async () => {
         if (!$currentUser) {
+            try {
+                console.log('load score from localStorage')
+                correct = parseInt(localStorage.getItem('correct') || '0');
+                total = parseInt(localStorage.getItem('total') || '0');
+                console.log('loaded score from localStorage', correct, total)
+            } catch (error) {
+
+            }
             return;
         }
         try {
@@ -42,24 +50,25 @@
         }
     }
     currentUser.subscribe(async (user: any) => {
-        if (user?.id === $currentUser?.id && total > 0) {
-            return; // no need to keep loading the score when this fires multiple times
-        }
-        if (user) {
-            console.log('user changed, calling getScore()')
-            await getScore();
-        }
+        // if (user?.id === $currentUser?.id && total > 0) {
+        //     return; // no need to keep loading the score when this fires multiple times
+        // }
+        console.log('user changed, calling getScore()')
+        await getScore();
     });
     const logQuestion = async (letter: string) => {
         if (!$currentUser) {
+            localStorage.setItem('correct', correct.toString());
+            localStorage.setItem('total', total.toString());
             return;
+        } else {
+            pb.collection('trivia_log').create({
+                question: question.id,
+                chosen: letter,
+                correct: (letter === 'a'),
+                user: $currentUser.id,
+            });
         }
-        pb.collection('trivia_log').create({
-            question: question.id,
-            chosen: letter,
-            correct: (letter === 'a'),
-            user: $currentUser.id,
-        });
     }
     const updateAnswers = () => {
         for (let i = 0; i < 4; i++) {
