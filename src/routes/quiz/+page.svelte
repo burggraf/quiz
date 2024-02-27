@@ -8,6 +8,7 @@
     import { goto } from '$app/navigation'
 	import Login from '$components/Login.svelte'
 	import { settingsOutline } from "ionicons/icons"
+	import { loadingBox } from '$services/loadingMessage'
 
 	const app_version = __APP_VERSION__
 	const app_name = __APP_NAME__
@@ -23,13 +24,9 @@
     let vars: any;
     onMount(async () => {
         await getQuestion();
-        console.log('vars', vars)
-    });
-    const ionViewDidEnter = async () => {
-        // await getScore();
         vars = await pb.send("/getvars", {});
-        // await getScore();
-    }
+    });
+
     const getScore = async () => {
         if (!$currentUser) {
             return;
@@ -100,7 +97,7 @@
         }
     }
 </script>
-<IonPage {ionViewDidEnter}>
+<IonPage>
     <ion-header>
         <ion-toolbar color="transparent">
             <ion-title>{app_name} {app_version}</ion-title>

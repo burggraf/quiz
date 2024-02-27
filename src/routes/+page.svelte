@@ -20,6 +20,7 @@
 	const app_name = __APP_NAME__
 
 	onMount(() => {
+		goto('/quiz')
 	})
 
 	const openLoginBox = async () => {
@@ -41,59 +42,7 @@
 </script>
 
 <IonPage>
-	<ion-header>
-		{#if $currentUser}
-			<ion-toolbar color="secondary">
-				<!-- <ion-buttons slot="start">
-					<ion-menu-button />
-				</ion-buttons> -->
-				<ion-title>Welcome</ion-title>
-			</ion-toolbar>
-		{/if}
-	</ion-header>
-	<ion-content class="ion-padding">
-		<div class="width-400">
-			{#if $currentUser}
-				<div class="center">
-					Welcome back <b>{$currentUser?.name || $currentUser?.email}</b>
-				</div>
-			{:else}
-				<div class="width-400">
-					<ion-button expand="block" on:click={openLoginBox}>Log In / Sign Up</ion-button><br/><br/><br/>
-					<ion-button expand="block" on:click={() => {goto('/quiz')}}>Just Quiz Me</ion-button>
-
-				</div>
-			{/if}
-		</div>
-	</ion-content>
-	<ion-footer>
-		{#if !$currentUser}
-			<ion-toolbar color="transparent" class="ion-text-center">
-				<b>{app_name} {app_version}</b><br />
-				<span
-					on:click={() => {
-						goto('/terms')
-					}}
-					class="pointer">Terms of Service</span
-				>
-				<span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
-				<span
-					on:click={() => {
-						goto('/privacy')
-					}}
-					class="pointer">Privacy</span
-				>
-				<span>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;</span>
-				<span
-					on:click={() => {
-						goto('/support')
-					}}
-					class="pointer">Support</span
-				>
-			</ion-toolbar>
-		{/if}
-	</ion-footer>
-
+	Redirecting...
 </IonPage>
 
 <style>
