@@ -133,10 +133,10 @@
             </ion-card-content>
           
             <div class="ion-padding">
-            <ion-button class="item-text-wrap" id="item-0" fill="clear" on:click={selectAnswer(question.answerMap[0])}>{question[question.answerMap[0]]}</ion-button>
-            <ion-button class="item-text-wrap" id="item-1" fill="clear" on:click={selectAnswer(question.answerMap[1])}>{question[question.answerMap[1]]}</ion-button>
-            <ion-button class="item-text-wrap" id="item-2" fill="clear" on:click={selectAnswer(question.answerMap[2])}>{question[question.answerMap[2]]}</ion-button>
-            <ion-button class="item-text-wrap" id="item-3" fill="clear" on:click={selectAnswer(question.answerMap[3])}>{question[question.answerMap[3]]}</ion-button>
+            <ion-button class="ion-text-wrap" id="item-0" fill="clear" on:click={selectAnswer(question.answerMap[0])}>{question[question.answerMap[0]]}</ion-button>
+            <ion-button class="ion-text-wrap" id="item-1" fill="clear" on:click={selectAnswer(question.answerMap[1])}>{question[question.answerMap[1]]}</ion-button>
+            <ion-button class="ion-text-wrap" id="item-2" fill="clear" on:click={selectAnswer(question.answerMap[2])}>{question[question.answerMap[2]]}</ion-button>
+            <ion-button class="ion-text-wrap" id="item-3" fill="clear" on:click={selectAnswer(question.answerMap[3])}>{question[question.answerMap[3]]}</ion-button>
             </div>
             {#if delay === 0 && answered}
             <ion-card-footer>
