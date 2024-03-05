@@ -217,6 +217,9 @@
     <ion-content class="ion-padding">
 
         <div class="ion-text-center" style="max-width: 500px;margin: auto;">
+            <ion-item-divider>
+                <ion-label>Games</ion-label>
+            </ion-item-divider>
             <ion-list>
                 {#each games as game}
                     <ion-item style="cursor: pointer;" lines="full"
