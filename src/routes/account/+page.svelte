@@ -158,9 +158,12 @@
 
 						<div class="container">
 							{#if $currentUser?.avatar}
-								<ion-img
+								<ion-avatar>
+									<!-- <ion-img
 									src={`${apiURL}api/files/users/${$currentUser.id}/${$currentUser?.avatar}?thumb=150x150`}
-								/>
+								/> -->
+									<img src={`${apiURL}api/files/users/${$currentUser.id}/${$currentUser?.avatar}?thumb=150x150`} />
+								</ion-avatar>
 							{:else}
 								<ion-button fill="clear" size="large" on:click={upload}
 									><ion-icon slot="icon-only" icon={cloudUploadOutline} /></ion-button
