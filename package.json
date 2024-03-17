@@ -2,7 +2,7 @@
   "name": "Quiz",
   "short_name": "Quiz",
   "description": "Quiz",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "homepage": "https://github.com/burggraf/quiz",
   "menu_title": "Quiz",
