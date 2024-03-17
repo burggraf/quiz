@@ -40,7 +40,7 @@
             return;
         }
         try {
-            const record = await pb.collection('trivia_log_score').getFirstListItem(`id="${$currentUser.id}"`, {});
+            const record = await pb.collection('trivia_log_score').getFirstListItem(`id="${$currentUser?.id}"`, {});
             if (record) {
                 correct = record.correct;
                 total = record.total;
@@ -130,7 +130,7 @@
     </ion-header>
     <ion-content class="ion-padding">
 
-        {#if question.id}
+        {#if question?.id}
         <ion-card>
             <ion-card-header>
               <ion-card-title>{question.category}</ion-card-title>
